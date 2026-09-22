@@ -2,7 +2,6 @@ from enum import Enum
 
 
 class Papel(str, Enum):
-    ADMIN = "ADMIN"
     ATENDENTE = "ATENDENTE"
     SOLICITANTE = "SOLICITANTE"
 
@@ -10,13 +9,19 @@ class Papel(str, Enum):
 class StatusChamado(str, Enum):
     ABERTO = "ABERTO"
     EM_ANALISE = "EM_ANALISE"
-    EM_ANTENDIMENTO = "EM_ATENDIMENTO"
     RESOLVIDO = "RESOLVIDO"
-    FECHADO = "FECHADO"
     CANCELADO = "CANCELADO"
-    
-    
+
+
 class PrioridadeChamado(str, Enum):
     BAIXA = "BAIXA"
     MEDIA = "MEDIA"
     ALTA = "ALTA"
+
+
+class SetorChamado(str, Enum):
+    TI = "TI"
+    RH = "RH"
+    FINANCEIRO = "FINANCEIRO"
+    ADMINISTRATIVO = "ADMINISTRATIVO"
+    MANUTENCAO = "MANUTENCAO"

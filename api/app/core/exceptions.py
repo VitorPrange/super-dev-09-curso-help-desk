@@ -1,5 +1,4 @@
-
-# ErroAplicacao e uma classe que herda exception
+# ErroAplicacao é uma classe que herda Exception
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
@@ -24,9 +23,18 @@ class ConflitoError(ErroAplicacao):
     codigo = "conflito"
 
 
+class PermissaoNegadaError(ErroAplicacao):
+    status_code = 403
+    codigo = "permissao_negada"
+
+
+class RegraNegocioError(ErroAplicacao):
+    status_code = 422
+    codigo = "regra_negocio"
+
+
 def __corpo_erro(codigo: str, mensagem: str, detalhes: list) -> dict:
     return {"codigo": codigo, "mensagem": mensagem, "detalhes": detalhes}
-
 
 def registrar_handler(app: FastAPI) -> None:
     @app.exception_handler(ErroAplicacao)

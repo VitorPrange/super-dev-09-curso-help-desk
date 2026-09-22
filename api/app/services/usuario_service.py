@@ -1,23 +1,19 @@
 from sqlalchemy.orm import Session
 
 from app.core.exceptions import ConflitoError, NaoEncontradoError
+from app.core.security import hash_senha
 from app.models.usuario import Usuario
 from app.repositories.usuario_repository import UsuarioRepository
 from app.schemas.usuario_schema import UsuarioCriar, UsuarioEditar
-from app.core.security import hash_senha
 
-
-
-class UsuarioService():
+class UsuarioService:
     def __init__(self, db: Session):
         self.db = db
         self.usuario_repository = UsuarioRepository(db)
-        
+
     def criar(self, dado: UsuarioCriar) -> Usuario:
-
         if self.usuario_repository.consultar_por_email(dado.email) is not None:
-            raise ConflitoError(f"E-mail '{dado.email}' cadastrado")
-
+            raise ConflitoError(f"E-mail '{dado.email}' já cadastrado")
 
         usuario = Usuario(
             nome=dado.nome,
@@ -33,11 +29,11 @@ class UsuarioService():
     def listar(self) -> list[Usuario]:
         return self.usuario_repository.listar_todos()
 
-    def editar(self, id: int, dado: UsuarioEditar)-> Usuario:
+    def editar(self, id: int, dado: UsuarioEditar) -> Usuario:
         usuario = self.usuario_repository.obter_por_id(id)
 
         if usuario is None:
-            raise NaoEncontradoError("Usuario não encontrado")
+            raise NaoEncontradoError("Usuário não encontrado")
 
         usuario.nome = dado.nome
         usuario.email = dado.email
@@ -51,19 +47,22 @@ class UsuarioService():
         usuario = self.usuario_repository.obter_por_id(id)
 
         if usuario is None:
-            raise NaoEncontradoError("Usuario não encontrado")
+            raise NaoEncontradoError("Usuário não encontrado")
+
+        if usuario.ativo == False:
+            raise NaoEncontradoError("Usuário não encontrado")
 
         return usuario
 
+
     def apagar(self, id: int) -> Usuario:
-        """soft delete: marca `ativo=False`. O registro continua no banco pra manter historico"""
+        """Soft delete: marca `ativo=False`. O registro continua no 
+        banco para manter histórico"""
         usuario = self.usuario_repository.obter_por_id(id)
 
         if usuario is None:
-            raise NaoEncontradoError("Usuario nao encontrado")
+            raise NaoEncontradoError("Usuário não encontrado")
 
-        usuario.ativo =  False
+        usuario.ativo = False
         self.db.commit()
         return usuario
-
-    

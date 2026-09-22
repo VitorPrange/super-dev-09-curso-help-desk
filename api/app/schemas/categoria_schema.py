@@ -1,11 +1,9 @@
-
-
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class CategoriaCriar(BaseModel):
-    nome: str = Field(min_length=2, max_length=60, description="Nome unico da categoria")
-    descricao: str | None = Field(default=None,max_length=255, description="Descrição opcional")
+    nome: str = Field(min_length=2, max_length=60, description="Nome único da categoria")
+    descricao: str | None = Field(default=None, max_length=255, description="Descrição opcional")
 
     model_config = ConfigDict(
         json_schema_extra={
@@ -18,8 +16,8 @@ class CategoriaCriar(BaseModel):
 
 
 class CategoriaEditar(BaseModel):
-    nome: str = Field(min_length=2, max_length=60, description="Nome unico da categoria")
-    descricao: str | None = Field(default=None,max_length=255, description="Descrição opcional")
+    nome: str = Field(min_length=2, max_length=60, description="Nome único da categoria")
+    descricao: str | None = Field(default=None, max_length=255, description="Descrição opcional")
 
     model_config = ConfigDict(
         json_schema_extra={
