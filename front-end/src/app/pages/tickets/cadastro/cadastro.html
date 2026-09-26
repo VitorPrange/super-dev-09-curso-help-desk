@@ -1,1 +1,43 @@
-<p>cadastro works!</p>
+<div class="botao-acao-voltar">
+    <button routerLink="/tickets">Voltar</button>
+</div>
+
+<h1>Cadastro de Tickets</h1>
+
+
+<div class="cadastro">
+    <div>
+        <label for="campo-usuario">Usuário</label>
+        <select id="campo-usuario" [(ngModel)]="ticket.idUsuario">
+            @for (usuario of usuarios(); track usuario.id) {
+                @if(usuario.papel == "SOLICITANTE"){
+                    <option [value]="usuario.id">{{usuario.nome}}</option>
+                }
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="campo-titulo">Título</label>
+        <input type="text" id="campo-setor" [(ngModel)]="ticket.titulo">
+    </div>
+
+    <div>
+        <label for="campo-setor">Setor</label>
+        <select id="campo-setor" [(ngModel)]="ticket.setor">
+            @for (setor of setores; track setor) {
+                <option [value]="setor.titulo">{{setor.descricao}}</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="campo-descricao">Descrição</label>
+        <textarea id="campo-descricao" [(ngModel)]="ticket.descricao"></textarea>
+    </div>
+
+
+    <div>
+        <button (click)="cadastrar()">Cadastrar</button>
+    </div>
+</div>

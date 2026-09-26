@@ -1,0 +1,251 @@
+:host {
+    display: contents;
+}
+
+/* Fundo escuro */
+
+.modal-fundo {
+    position: fixed;
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+
+    background: rgba(10, 6, 18, 0.75);
+
+    backdrop-filter: blur(2px);
+
+    animation: modal-fundo-entrada 0.15s ease;
+}
+
+/* Caixa */
+
+.modal {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 560px;
+    max-height: calc(100vh - 48px);
+
+    background: #181126;
+    color: #f5f3ff;
+
+    border: 1px solid #2d2142;
+    border-radius: 12px;
+
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+
+    overflow: hidden;
+
+    animation: modal-entrada 0.18s ease;
+}
+
+/* Cabeçalho */
+
+.modal-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+
+    padding: 20px 24px;
+
+    background: #25163d;
+
+    border-bottom: 1px solid #3b2a55;
+}
+
+.modal-cabecalho h2 {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #ffffff;
+}
+
+.modal-fechar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 32px;
+    height: 32px;
+
+    padding: 0;
+
+    background: transparent;
+    color: #c4b5fd;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 24px;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.modal-fechar:hover {
+    background: #3b2a55;
+    color: #ffffff;
+}
+
+/* Corpo */
+
+.modal-corpo {
+    flex: 1;
+
+    padding: 24px;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    color: #e9e5f5;
+
+    overflow-y: auto;
+}
+
+/* Rodapé com os botões */
+
+.modal-acoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+    flex-wrap: wrap;
+
+    padding: 16px 24px;
+
+    background: #140e21;
+
+    border-top: 1px solid #2a2038;
+}
+
+.modal-acoes:empty {
+    display: none;
+}
+
+/* Estilo padrão dos botões projetados pelo componente pai.
+   O ::ng-deep é necessário porque o conteúdo projetado carrega
+   a encapsulação do pai, não a desta modal. */
+
+.modal-acoes ::ng-deep button {
+    padding: 10px 20px;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    background: #6d28d9;
+    color: #ffffff;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.modal-acoes ::ng-deep button:hover {
+    background: #7c3aed;
+
+    transform: translateY(-1px);
+}
+
+.modal-acoes ::ng-deep button:active {
+    transform: translateY(0);
+}
+
+/* Variações opcionais: <button class="secundario"> e <button class="perigo"> */
+
+.modal-acoes ::ng-deep button.secundario {
+    background: transparent;
+    color: #c4b5fd;
+
+    border: 1px solid #3b2a55;
+}
+
+.modal-acoes ::ng-deep button.secundario:hover {
+    background: #21172f;
+
+    border-color: #6d28d9;
+    color: #ffffff;
+}
+
+.modal-acoes ::ng-deep button.perigo {
+    background: #991b1b;
+}
+
+.modal-acoes ::ng-deep button.perigo:hover {
+    background: #b91c1c;
+}
+
+.modal-acoes ::ng-deep button.sucesso {
+    background: #15803d;
+}
+
+.modal-acoes ::ng-deep button.sucesso:hover {
+    background: #16a34a;
+}
+
+/* Animações */
+
+@keyframes modal-fundo-entrada {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-entrada {
+    from {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsividade */
+
+@media (max-width: 700px) {
+    .modal-fundo {
+        padding: 16px;
+    }
+
+    .modal-cabecalho,
+    .modal-corpo,
+    .modal-acoes {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .modal-acoes {
+        justify-content: stretch;
+    }
+
+    .modal-acoes ::ng-deep button {
+        flex: 1;
+    }
+}

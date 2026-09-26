@@ -1,0 +1,257 @@
+:host {
+    display: block;
+
+    width: 100%;
+    min-height: calc(100vh - 64px);
+
+    padding: 32px;
+
+    background: #0f0a1a;
+    color: #f5f3ff;
+}
+
+h1 {
+    margin: 0 0 24px;
+
+    font-size: 32px;
+    font-weight: 700;
+
+    color: #ffffff;
+}
+
+/* Voltar — topo esquerdo */
+
+.botao-acao-voltar {
+    display: flex;
+    justify-content: flex-start;
+
+    margin-bottom: 16px;
+}
+
+.botao-acao-voltar button {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 18px;
+
+    background: transparent;
+    color: #c4b5fd;
+
+    border: 1px solid #3b2a55;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.botao-acao-voltar button::before {
+    content: "←";
+
+    font-size: 16px;
+    line-height: 1;
+}
+
+.botao-acao-voltar button:hover {
+    background: #21172f;
+
+    border-color: #6d28d9;
+    color: #ffffff;
+
+    transform: translateX(-2px);
+}
+
+.botao-acao-voltar button:active {
+    transform: translateX(0);
+}
+
+/* Card do formulário — ocupa toda a largura disponível */
+
+.cadastro {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+
+    gap: 20px 24px;
+
+    align-items: start;
+
+    width: 100%;
+
+    padding: 28px;
+
+    background: #181126;
+
+    border: 1px solid #2d2142;
+    border-radius: 12px;
+}
+
+.cadastro > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    min-width: 0;
+}
+
+/* Descrição e botão ocupam a linha inteira */
+
+.cadastro > div:nth-child(4),
+.cadastro > div:nth-child(5) {
+    grid-column: 1 / -1;
+}
+
+.cadastro > div:nth-child(5) {
+    justify-content: flex-end;
+
+    flex-direction: row;
+
+    margin-top: 4px;
+}
+
+/* Rótulos */
+
+label {
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #c4b5fd;
+}
+
+/* Campos */
+
+input,
+select,
+textarea {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    font-size: 14px;
+
+    background: #21172f;
+    color: #e9e5f5;
+
+    border: 1px solid #3b2a55;
+    border-radius: 6px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #8b7ba8;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: #4c3670;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    background: #251b36;
+
+    border-color: #7c3aed;
+
+    box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.25);
+}
+
+select {
+    cursor: pointer;
+
+    appearance: none;
+
+    padding-right: 38px;
+
+    background-image: linear-gradient(45deg, transparent 50%, #c4b5fd 50%),
+        linear-gradient(135deg, #c4b5fd 50%, transparent 50%);
+    background-position:
+        calc(100% - 20px) calc(50% + 2px),
+        calc(100% - 15px) calc(50% + 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+select option {
+    background: #181126;
+    color: #e9e5f5;
+}
+
+textarea {
+    min-height: 180px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+/* Botão de cadastrar */
+
+.cadastro button {
+    padding: 12px 28px;
+
+    border: none;
+    border-radius: 6px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    background: #6d28d9;
+    color: #ffffff;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cadastro button:hover {
+    background: #7c3aed;
+
+    transform: translateY(-1px);
+}
+
+.cadastro button:active {
+    transform: translateY(0);
+}
+
+/* Responsividade */
+
+@media (max-width: 1000px) {
+    :host {
+        padding: 20px;
+    }
+
+    .cadastro {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 700px) {
+    .cadastro > div:nth-child(5) {
+        justify-content: stretch;
+    }
+
+    .cadastro button {
+        width: 100%;
+    }
+}

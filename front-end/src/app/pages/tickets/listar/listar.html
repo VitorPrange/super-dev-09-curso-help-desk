@@ -18,26 +18,44 @@
     </thead>
     <tbody>
         @for (ticket of tickets(); track ticket.id) {
-            <tr>
-                <td class="link">{{ticket.numeroProtocolo}}</td>
-                <td>TODO</td>
-                <td>{{ticket.titulo}}</td>
-                <td>{{ticket.prioridade}}</td>
-                <td>{{ticket.status}}</td>
-                <td>
-                    @if(ticket.status === "ABERTO"){
-                        <button>Associar</button>
-                    }
-                    @else if(ticket.status === "EM_ANALISE"){
-                        <button>Definir Prioridade</button>
-                        <button>Resolver</button>
-                        <button>Cancelar</button>
-                    } @else {
-                        <span class="sem-acoes">Nenhuma ação disponivel</span>
-                    }
-                </td>
-            </tr>
+        <tr>
+            <td class="link">{{ticket.numeroProtocolo}}</td>
+            <td>TODO</td>
+            <td>{{ticket.titulo}}</td>
+            <td>{{ticket.prioridade}}</td>
+            <td>{{ticket.status}}</td>
+            <td>
+                @if(ticket.status === "ABERTO"){
+                <button (click)="abrirModalAssociar(ticket.id)">Associar</button>
+                }
+                @else if(ticket.status === "EM_ANALISE"){
+                <button>Definir Prioridade</button>
+                <button>Resolver</button>
+                <button>Cancelar</button>
+                } @else {
+                <span class="sem-acoes">Nenhuma ação disponivel</span>
+                }
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 
+<app-modal titulo="Associar Ticket" [aberto]="modalAssociarAberta()" (fechar)="modalAssociarAberta.set(false)">
+
+    <div>
+        <div>
+            <label for="campo-usuario">Usuário</label>
+            <select id="campo-usuario" [(ngModel)]="ticketAssociar.idUsuario">
+                @for (usuario of usuarios(); track usuario.id) {
+                @if(usuario.papel == "ATENDENTE"){
+                <option [value]="usuario.id">{{usuario.nome}}</option>
+                }
+                }
+            </select>
+        </div>
+        <button modal-acoes class="secundario" (click)="modalAssociarAberta.set(false)">Cancelar</button>
+        <button modal-acoes (click)="associar()">Associar</button>
+    </div>
+
+</app-modal>

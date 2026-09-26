@@ -1,0 +1,23 @@
+@if (aberto()) {
+<div class="modal-fundo" (click)="aoClicarNoFundo($event)">
+    <div class="modal" role="dialog" aria-modal="true">
+        <header class="modal-cabecalho">
+            <h2>{{ titulo() }}</h2>
+
+            @if (mostrarBotaoFechar()) {
+            <button type="button" class="modal-fechar" aria-label="Fechar" (click)="fechar.emit()">
+                &times;
+            </button>
+            }
+        </header>
+
+        <div class="modal-corpo">
+            <ng-content />
+        </div>
+
+        <footer class="modal-acoes">
+            <ng-content select="[modal-acoes]" />
+        </footer>
+    </div>
+</div>
+}
