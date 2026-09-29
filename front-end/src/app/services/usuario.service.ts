@@ -7,11 +7,11 @@ import { UsuarioResposta } from '../models/usuarios.model';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private httpClient = inject(HttpClient)
+  private httpClient = inject(HttpClient);
 
   private baseUrl = `http://localhost:8000/usuarios`;
 
   listar(): Observable<UsuarioResposta[]> {
-    return this.httpClient.get<UsuarioResposta[]>(this.baseUrl)
+    return this.httpClient.get<UsuarioResposta[]>(this.baseUrl);
   }
 }

@@ -1,0 +1,39 @@
+<app-modal
+    titulo="Resolver Ticket"
+    [aberto]="aberto()"
+    [fecharAoClicarFora]="false"
+    (fechar)="aoFechar()">
+
+    <div class="form-modal">
+        <div>
+            <span class="rotulo">Ticket</span>
+            <p class="valor-fixo">{{ticket()?.numeroProtocolo}} — {{ticket()?.titulo}}</p>
+        </div>
+
+        <div>
+            <span class="rotulo">Atendente</span>
+            <!-- a api só aceita o atendente associado ao ticket, então o campo
+                 é apenas informativo, não uma escolha -->
+            <p class="valor-fixo">{{atendente()?.nome ?? "Sem atendente associado"}}</p>
+        </div>
+
+        <div>
+            <label for="campo-solucao">Descrição da solução</label>
+            <textarea id="campo-solucao"
+                [maxlength]="descricaoMaxima"
+                placeholder="O que foi feito para resolver o ticket?"
+                [(ngModel)]="dado.descricao"></textarea>
+            <span class="contador">{{dado.descricao.length}}/{{descricaoMaxima}}</span>
+        </div>
+
+        @if(erro()){
+            <p class="erro">{{erro()}}</p>
+        }
+    </div>
+
+    <!-- botões (rodapé da modal) -->
+    <button modal-acoes class="perigo-contorno"
+        (click)="aoFechar()">Cancelar</button>
+    <button modal-acoes class="sucesso"
+        [disabled]="salvando()" (click)="salvar()">Resolver</button>
+</app-modal>

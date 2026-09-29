@@ -1,4 +1,4 @@
-export interface TicketResposta{
+export interface TicketResposta {
     id: number;
     numeroProtocolo: string;
     titulo: string;
@@ -8,19 +8,34 @@ export interface TicketResposta{
     setor: string;
     descricaoSolucao: string | null;
     motivoCancelamento: string | null;
-    dataCricacao: Date;
+    dataCriacao: Date;
     dataAtualizacao: Date | null;
     solicitanteId: number;
     atendenteId: number | null;
 }
 
-export interface TicketCadastro{
+export interface TicketCadastro {
     descricao: string;
     idUsuario: number | null;
     setor: string;
     titulo: string;
 }
 
-export interface TicketAssociar{
+export interface TicketAssociar {
     idUsuario: number | null;
+}
+
+export interface TicketDefinirPrioridade {
+    idUsuario: number | null;
+    prioridade: string | null;
+}
+
+export interface TicketResolver {
+    idUsuario: number | null;
+    descricao: string;
+}
+
+export interface TicketCancelar {
+    idUsuario: number | null;
+    motivo: string;
 }

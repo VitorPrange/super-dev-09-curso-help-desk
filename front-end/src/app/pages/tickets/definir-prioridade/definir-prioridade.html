@@ -1,0 +1,42 @@
+<app-modal
+    titulo="Definir Prioridade"
+    [aberto]="aberto()"
+    [fecharAoClicarFora]="false"
+    (fechar)="aoFechar()">
+
+    <div class="form-modal">
+        <div>
+            <label for="campo-atendente">Atendente</label>
+            <select id="campo-atendente" [(ngModel)]="dado.idUsuario">
+                @for(atendente of atendentes(); track atendente.id){
+                    <option [ngValue]="atendente.id">{{atendente.nome}}</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <span class="rotulo">Prioridade</span>
+
+            <div class="opcoes">
+                @for(prioridade of prioridades; track prioridade.valor){
+                    <label class="opcao">
+                        <input type="radio" name="prioridade"
+                            [value]="prioridade.valor"
+                            [(ngModel)]="dado.prioridade">
+                        {{prioridade.descricao}}
+                    </label>
+                }
+            </div>
+        </div>
+
+        @if(erro()){
+            <p class="erro">{{erro()}}</p>
+        }
+    </div>
+
+    <!-- botões (rodapé da modal) -->
+    <button modal-acoes class="perigo-contorno"
+        (click)="aoFechar()">Cancelar</button>
+    <button modal-acoes class="sucesso"
+        [disabled]="salvando()" (click)="salvar()">Salvar</button>
+</app-modal>

@@ -1,0 +1,9 @@
+/* O componente é apenas um invólucro da modal: não deve criar
+   caixa nenhuma no layout da tela que o utiliza. */
+
+:host {
+    display: contents;
+}
+
+/* O formulário usa a classe global .form-modal (src/styles.scss),
+   compartilhada pelas modais de ação do ticket. */

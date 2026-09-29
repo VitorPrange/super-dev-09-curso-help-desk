@@ -13,7 +13,6 @@ import { UsuarioResposta } from '../../../models/usuarios.model';
   styleUrl: './cadastro.scss',
 })
 export class Cadastro {
-
   ticketService = inject(TicketService);
   usuarioService = inject(UsuarioService);
   router = inject(Router);
@@ -50,7 +49,7 @@ export class Cadastro {
     titulo: ""
   }
 
-  ngOnInit() {
+  ngOnInit(){
     this.carregarUsuarios();
   }
 
@@ -59,12 +58,13 @@ export class Cadastro {
       next: usuarios => this.usuarios.set(usuarios),
       error: erro => {
         console.error(erro);
-        alert("Não foi possivel listar os usuarios")
+        alert("Não foi possível listar os usuários");
       }
     })
   }
 
-  cadastrar(){
+  cadastrar() {
+    // chamar o service que fará a request para a api cadastrar o ticket
     this.ticketService.cadastrar(this.ticket).subscribe({
       next: () => {
         alert("Ticket cadastrado com sucesso")
@@ -72,7 +72,7 @@ export class Cadastro {
       },
       error: erro => {
         console.error(erro);
-        alert("Não foi possivel cadastrar o ticket");
+        alert("Não foi possível cadastrar o ticket");
       }
     })
   }

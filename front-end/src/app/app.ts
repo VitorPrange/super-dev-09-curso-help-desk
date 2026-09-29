@@ -6,7 +6,7 @@ import { Navbar } from './layout/navbar/navbar';
   selector: 'app-root',
   imports: [RouterOutlet, Navbar],
   templateUrl: './app.html',
-  styleUrl: './app.scss',
+  styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('helpdesk');

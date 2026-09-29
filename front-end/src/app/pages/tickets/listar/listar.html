@@ -1,6 +1,5 @@
 <h1>Tickets</h1>
 
-
 <div class="botao-acao-criar">
     <button routerLink="cadastro">Criar</button>
 </div>
@@ -10,14 +9,14 @@
         <tr>
             <th>Número</th>
             <th>Solicitante</th>
-            <th>Titulo</th>
+            <th>Título</th>
             <th>Prioridade</th>
             <th>Status</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @for (ticket of tickets(); track ticket.id) {
+        @for(ticket of tickets(); track ticket.id){
         <tr>
             <td class="link">{{ticket.numeroProtocolo}}</td>
             <td>TODO</td>
@@ -26,14 +25,14 @@
             <td>{{ticket.status}}</td>
             <td>
                 @if(ticket.status === "ABERTO"){
-                <button (click)="abrirModalAssociar(ticket.id)">Associar</button>
+                <button (click)="abrirModalAssociar(ticket)">Associar</button>
                 }
                 @else if(ticket.status === "EM_ANALISE"){
-                <button>Definir Prioridade</button>
-                <button>Resolver</button>
-                <button>Cancelar</button>
+                <button (click)="abrirModalPrioridade(ticket)">Definir Prioridade</button>
+                <button (click)="abrirModalResolver(ticket)">Resolver</button>
+                <button (click)="abrirModalCancelar(ticket)">Cancelar</button>
                 } @else {
-                <span class="sem-acoes">Nenhuma ação disponivel</span>
+                <span class="sem-acoes">Nenhuma ação disponível</span>
                 }
             </td>
         </tr>
@@ -41,21 +40,47 @@
     </tbody>
 </table>
 
-<app-modal titulo="Associar Ticket" [aberto]="modalAssociarAberta()" (fechar)="modalAssociarAberta.set(false)">
+<app-modal
+    titulo="Associar Ticket"
+    [aberto]="modalAssociarAberta()"
+    (fechar)="modalAssociarAberta.set(false)">
 
-    <div>
+    <div class="form-modal">
         <div>
             <label for="campo-usuario">Usuário</label>
             <select id="campo-usuario" [(ngModel)]="ticketAssociar.idUsuario">
-                @for (usuario of usuarios(); track usuario.id) {
-                @if(usuario.papel == "ATENDENTE"){
-                <option [value]="usuario.id">{{usuario.nome}}</option>
-                }
+                @for(usuario of usuarios(); track usuario.id){
+                    @if(usuario.papel == "ATENDENTE"){
+                        <option [value]="usuario.id">{{usuario.nome}}</option>
+                    }
                 }
             </select>
         </div>
-        <button modal-acoes class="secundario" (click)="modalAssociarAberta.set(false)">Cancelar</button>
-        <button modal-acoes (click)="associar()">Associar</button>
     </div>
 
+    <!-- botões (rodapé da modal) -->
+    <button modal-acoes class="perigo-contorno"
+        (click)="modalAssociarAberta.set(false)">Cancelar</button>
+    <button modal-acoes class="sucesso" (click)="associar()">Associar</button>
 </app-modal>
+
+<app-definir-prioridade
+    [aberto]="modalPrioridadeAberta()"
+    [ticket]="ticketSelecionado()"
+    [usuarios]="usuarios()"
+    (fechar)="modalPrioridadeAberta.set(false)"
+    (definido)="aoDefinirPrioridade($event)" />
+
+<app-resolver
+    [aberto]="modalResolverAberta()"
+    [ticket]="ticketSelecionado()"
+    [usuarios]="usuarios()"
+    (fechar)="modalResolverAberta.set(false)"
+    (resolvido)="aoResolver($event)" />
+
+<app-cancelar
+    [aberto]="modalCancelarAberta()"
+    [ticket]="ticketSelecionado()"
+    [usuarios]="usuarios()"
+    (fechar)="modalCancelarAberta.set(false)"
+    (cancelado)="aoCancelar($event)" />

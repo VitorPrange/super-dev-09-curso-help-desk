@@ -30,3 +30,198 @@ select,
 textarea {
   font-family: inherit;
 }
+/* ==========================================================================
+   .form-modal — formulário dentro de app-modal
+
+   Classe global porque o corpo da modal é conteúdo projetado e cada ação de
+   ticket (associar, definir prioridade, resolver, cancelar) é um componente
+   diferente. Mantendo aqui, o formulário das quatro modais é idêntico sem
+   repetir as regras em quatro .scss.
+   ========================================================================== */
+
+.form-modal {
+  display: flex;
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.form-modal > div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+
+  min-width: 0;
+}
+
+/* Rótulos */
+
+.form-modal label,
+.form-modal .rotulo {
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #c4b5fd;
+}
+
+/* Campos */
+
+.form-modal input:not([type="radio"]),
+.form-modal select,
+.form-modal textarea {
+  width: 100%;
+
+  padding: 12px 14px;
+
+  font-size: 14px;
+
+  background: #21172f;
+  color: #e9e5f5;
+
+  border: 1px solid #3b2a55;
+  border-radius: 6px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-modal textarea::placeholder {
+  color: #8b7ba8;
+}
+
+.form-modal select:hover,
+.form-modal textarea:hover {
+  border-color: #4c3670;
+}
+
+.form-modal select:focus,
+.form-modal textarea:focus {
+  background: #251b36;
+
+  border-color: #7c3aed;
+
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.25);
+}
+
+.form-modal select {
+  cursor: pointer;
+
+  appearance: none;
+
+  padding-right: 38px;
+
+  background-image: linear-gradient(45deg, transparent 50%, #c4b5fd 50%),
+    linear-gradient(135deg, #c4b5fd 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) calc(50% + 2px),
+    calc(100% - 15px) calc(50% + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+.form-modal select option {
+  background: #181126;
+  color: #e9e5f5;
+}
+
+.form-modal textarea {
+  min-height: 130px;
+
+  line-height: 1.5;
+
+  resize: vertical;
+}
+
+/* Grupo de radios */
+
+.form-modal .opcoes {
+  display: flex;
+
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.form-modal .opcao {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  flex: 1;
+
+  padding: 12px 14px;
+
+  font-size: 14px;
+  font-weight: 500;
+
+  background: #21172f;
+  color: #e9e5f5;
+
+  border: 1px solid #3b2a55;
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.form-modal .opcao:hover {
+  background: #251b36;
+
+  border-color: #4c3670;
+}
+
+.form-modal .opcao:has(input:checked) {
+  background: #251b36;
+
+  border-color: #7c3aed;
+}
+
+.form-modal .opcao input {
+  margin: 0;
+
+  accent-color: #6d28d9;
+
+  cursor: pointer;
+}
+
+/* Campo somente leitura (ex.: atendente fixo da ação de resolver) */
+
+.form-modal .valor-fixo {
+  margin: 0;
+
+  padding: 12px 14px;
+
+  font-size: 14px;
+
+  background: #1b1329;
+  color: #c9c1de;
+
+  border: 1px dashed #3b2a55;
+  border-radius: 6px;
+}
+
+/* Contador de caracteres e mensagem de erro */
+
+.form-modal .contador {
+  align-self: flex-end;
+
+  font-size: 12px;
+
+  color: #8b7ba8;
+}
+
+.form-modal .erro {
+  margin: 0;
+
+  font-size: 13px;
+
+  color: #f87171;
+}
